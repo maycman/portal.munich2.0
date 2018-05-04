@@ -1,0 +1,102 @@
+html, body
+{
+	background-color: #3E7CB1;
+	height:100%;
+	margin:0;
+}
+body
+{
+	margin: 0;
+	padding: 0;
+	width: 100%;
+	font-weight: 100;
+	font-family: 'Asap', sans-serif;
+}
+#wrap
+{
+	background-color: /*#a5bcc0*/#3E7CB1;
+	margin-top: 6em;
+	margin-bottom: 5em;
+	position: relative;
+}
+.jumbomod
+{
+	background-color: black;
+	color: white;
+	bottom: 0;
+	width: 100%;
+	height: 100%;
+}
+#preguntas
+{
+	margin-top: 5em;
+}
+.separa
+{
+	margin-top: 2em;
+}
+.buttonForm
+{
+	margin-top: 5em;
+}
+.buffer-top
+{
+	margin-top:10em;
+}
+.file
+{
+	display: none;
+}
+.btn-file
+{
+    position: relative;
+    overflow: hidden;
+}
+.btn-file input[type=file]
+{
+    position: absolute;
+    top: 0;
+    right: 0;
+    min-width: 100%;
+    min-height: 100%;
+    font-size: 100px;
+    text-align: right;
+    filter: alpha(opacity=0);
+    opacity: 0;
+    outline: none;
+    background: white;
+    cursor: inherit;
+    display: block;
+}
+.vertical-align
+{
+	padding-top: 5em;
+}
+.vertical-double
+{
+	padding-top: 12em;
+}
+.mgn-top
+{
+	padding-top: 2em;
+}
+.mgn-left
+{
+	padding-left: 2em;
+}
+.title-master
+{
+	font-size: 96px;
+}
+.title-sub
+{
+	font-size: 46px;
+}
+.hide
+{
+	display:none;
+}
+.well
+{
+	background-color: #E2C044 !important;
+}
