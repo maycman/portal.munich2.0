@@ -57,8 +57,8 @@ function aceptaEncuesta()
         //Este removeClass hace que al darle click muchas veces siempre funcione el checkbox
         form.removeClass();
         //Activamos los campos de la encuesta
-        //Desactivamos todos los input del div Preguntas
-       	form.find('input, textarea, button, select').attr('disabled', false);
+        //Activamos required de todos los campos del div Preguntas
+       	//form.find('input, textarea, button, select').attr('required', true);
        	//Le damos animación a los campos
        	form.addClass('animated rollIn');
 
@@ -70,8 +70,10 @@ function aceptaEncuesta()
        	form.addClass('animated rollOut');
        	//Eliminamos del DOM todos los input innesesarios
        	//form.remove('input');
-       	//Desactivamos todos los campos del div Preguntas
-       	form.find('input, textarea, button, select').attr('disabled', true);
+       	//O podemos desactivar todo tipo de campo en un formulario buscando
+       	//form.find('input, textarea, button, select').attr('disabled', true);
+       	//Quitamos required de todos los campos del div Preguntas
+       	form.find('input, textarea, button, select').attr('required', false);
        	//Se agrega una clase despues del tiempo de la animación para ocultarla completamente
        	setTimeout(function(){form.addClass('hide');}, 500);
     }
@@ -83,7 +85,7 @@ function llamarLuego()
 	var llamar = $('#butonReprograma');
 	var encuesta = $('#questions');
 	var fecha = $('#agendar');
-	var inputFecha = $('#reprogramar');
+	var inputFecha = $('#reprograma');
     if (llamar.prop('checked'))
     {
     	//Estos removeClass hacen que al darle click muchas veces siempre funcione el checkbox
@@ -91,12 +93,12 @@ function llamarLuego()
     	fecha.removeClass();
     	//Agregamos animación de entrada al input de fecha para reprogramar la encuesta
     	fecha.addClass('form-group animated flipInX');
-    	//activamos eel campo de reprogramar
-    	inputFecha.attr('disabled',false);
+    	//activamos el campo de reprogramar
+    	inputFecha.attr('required',true);
     	//Agregamos animación de salida para el encuesta y poder ocultarla
     	encuesta.addClass('animated zoomOut');
-    	//Desactivamos todos los campos del div questions
-    	encuesta.find('input, textarea, button, select').attr('disabled', true);
+    	//Desactivamos required de todos los campos del div questions
+    	encuesta.find('input, textarea, button, select').attr('required', false);
     	//Escondemos realmente la encuesta despues de todas las animaciones
         setTimeout(function(){encuesta.addClass('hide');}, 500);
     }
@@ -106,12 +108,12 @@ function llamarLuego()
         fecha.removeClass();
         //Escondemos el input de reprogramar
         fecha.addClass('form-group animated flipOutX');
-        //desactivamos el campo de reprogramar
-        inputFecha.attr('disabled',true);
+        //desactivamos required del campo de reprogramar
+        inputFecha.attr('required',false);
         //Animamos la entrada de la encuesta
         encuesta.addClass('animated zoomIn');
-        //Activamos de nuevo los campos de la encuesta
-        encuesta.find('input, textarea, button, select').attr('disabled', false);
+        //Activamos de nuevo required de los campos de la encuesta
+        //encuesta.find('input, textarea, button, select').attr('required', true);
         //escondemos realmente el input de reprogramar
         setTimeout(function(){fecha.addClass('hide');}, 500);
     }
@@ -128,13 +130,14 @@ function pregunta2()
 	{
 		content.removeClass();
 		content.addClass('animated zoomIn separa');
+		content.find('input, textarea, button, select').attr('required', true);
 	}
 	else
 	{
 		content.removeClass();
 		content.addClass("animated zoomOut");
 		setTimeout(function(){content.addClass('hide');}, 500);
-		content.find('input, textarea, button, select').attr('disabled', true);
+		content.find('input, textarea, button, select').attr('required', false);
 	}
 }
 
@@ -152,7 +155,7 @@ function pregunta3()
 		content.removeClass();
 		content.addClass("animated zoomOut");
 		setTimeout(function(){content.addClass('hide');}, 500);
-		content.find('input, textarea, button, select').attr('disabled', true);
+		content.find('input, textarea, button, select').attr('required', false);
 	}
 }
 function respOtro()
@@ -163,13 +166,14 @@ function respOtro()
 	{
 		content.removeClass();
 		content.addClass(' row animated zoomIn');
+		content.find('input, textarea, button, select').attr('required', true);
 	}
 	else
 	{
 		content.removeClass();
 		content.addClass(" row animated zoomOut");
 		setTimeout(function(){content.addClass('hide');}, 500);
-		content.find('input, textarea, button, select').attr('disabled', true);
+		content.find('input, textarea, button, select').attr('required', false);
 	}
 }
 function pregunta4()
@@ -180,13 +184,32 @@ function pregunta4()
 	{
 		content.removeClass();
 		content.addClass('animated zoomIn separa');
+		content.find('input, textarea, button, select').attr('required', true);
 	}
 	else
 	{
 		content.removeClass();
 		content.addClass("animated zoomOut");
 		setTimeout(function(){content.addClass('hide');}, 500);
-		content.find('input, textarea, button, select').attr('disabled', true);
+		content.find('input, textarea, button, select').attr('required', false);
+	}
+}
+function pregunta5()
+{
+	var select = $('#p5');
+	var content = $('#p5Negativo');
+	if (select.val()<=7)
+	{
+		content.removeClass();
+		content.addClass('animated zoomIn separa');
+		content.find('input, textarea, button, select').attr('required', true);
+	}
+	else
+	{
+		content.removeClass();
+		content.addClass("animated zoomOut");
+		setTimeout(function(){content.addClass('hide');}, 500);
+		content.find('input, textarea, button, select').attr('required', false);
 	}
 }
 

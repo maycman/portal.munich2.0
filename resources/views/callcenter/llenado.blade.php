@@ -111,7 +111,7 @@
 						</div>
 						<div id="agendar" class="form-group hide">
                 			<div class='input-group date picker'>
-                    			<input type='text' id="reprogramar" name="reprogramar" class="form-control" disabled required/>
+                    			<input type='text' id="reprograma" name="reprograma" class="form-control"/>
                     			<span class="input-group-addon">
                         			<span class="glyphicon glyphicon-calendar"></span>
                     			</span>
@@ -288,7 +288,7 @@
 										<div class="col-sm-11 col-sm-offset-1">
 											<div class="checkbox">
     											<label>
-      												<input type="checkbox" name="rf" id="rf"> El taller causó negó que hubiera un problema/Afirmó que era normal.
+      												<input type="checkbox" name="rf" id="rf"> El taller negó que hubiera un problema/Afirmó que era normal.
     											</label>
   											</div>
 										</div>

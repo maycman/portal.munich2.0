@@ -26,10 +26,10 @@ class encuestaController extends Controller
      */
     public function servicio()
     {
-        $registro = Registro::all();
+        $registro = Registro::orderBy('id_registro', 'DESC')->paginate(50);
         return view('callcenter/servicio', compact('registro'));
     }
-    public function create()
+    public function ventas()
     {
         //
     }
@@ -41,14 +41,49 @@ class encuestaController extends Controller
      */
     public function store(Request $request)
     {
-        dd($request);
-        /*Registro::create([
-            'concesionaria' => $base->no_concesionario,
-            'empresa' =>$base->empresa,
-            'razon_social' =>$base->razonsocial,
-            'nombre' =>$base->nombre,
-            'ap_paterno' =>$base->apellido,
-        ]);*/
+        //dd($request);
+        //isset($request->acepta)?:$request->acepta=null;
+        //dd($request->acepta);
+        Registro::create([
+            'acepta' => $request->acepta,
+            'reprograma' =>$request->butonReprograma,
+            'fecha_reprograma' =>$request->reprograma,
+            'p1' =>$request->p1,
+            'p2' =>$request->p2,
+            'p2a' =>$request->p2a,
+            'p2b' =>$request->p2b,
+            'p2c' =>$request->p2c,
+            'p2d' =>$request->p2d,
+            'p2e' =>$request->p2e,
+            'p2f' =>$request->p2f,
+            'p3' =>$request->p3,
+            'disp_refacciones' =>$request->ra,
+            'problema_no_determinado' =>$request->rb,
+            'falla_de_nuevo' =>$request->rc,
+            'trabajo_parcial' =>$request->rd,
+            'taller_causo_problema' =>$request->re,
+            'taller_nego_problema' =>$request->rf,
+            'taller_ocupado' =>$request->rg,
+            'otro' =>$request->hrComent,
+            'p4' =>$request->p4,
+            'p4a' =>$request->p4a,
+            'p4b' =>$request->p4b,
+            'p4c' =>$request->p4c,
+            'p4d' =>$request->p4d,
+            'p5' =>$request->p5,
+            'p5a' =>$request->p5a,
+            'p5b' =>$request->p5b,
+            'p5c' =>$request->p5c,
+            'p5d' =>$request->p5d,
+            'p6' =>$request->p6,
+            'p6a' =>$request->p6a,
+            'p7' =>$request->p7,
+            'p5' =>$request->p5,
+            'comentarios' =>$request->comentarios
+        ]);
+        $registro = Registro::orderBy('id_registro', 'DESC')->paginate(50);
+        \Alert::message('Encuesta guardada', 'warning');
+        return view('callcenter.servicio', compact('registro'));
     }
 
     /**

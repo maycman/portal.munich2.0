@@ -10,6 +10,11 @@
 			</div>
 		</div>
 		<div class="row">
+			<div class="col-sm-offset-1 col-sm-2">
+				{!! Alert::render() !!}
+			</div>
+		</div>
+		<div class="row">
 			<div class="col-sm-12">
 				<!--div class="table-responsive"-->
 					<table class="table table-striped">
@@ -66,6 +71,11 @@
 						</tbody>
 					</table>
 				<!--/div-->
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-offset-4 col-sm-6">
+				{!! $registro->render() !!}
 			</div>
 		</div>
 	</div>
