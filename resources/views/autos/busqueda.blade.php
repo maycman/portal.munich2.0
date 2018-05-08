@@ -13,9 +13,21 @@
             <button class="btn btn-danger" onclick="history.back(-1)"><span class="glyphicon glyphicon-menu-left"></span> Volver</button>
         </div>
     </div>
-    <div class="row">
-        <div class="col-sm-2 mgn-top">
+    <div class="row mgn-top">
+        <div class="col-sm-2">
             {!! Alert::render() !!}
+        </div>
+        <div class="col-sm-2">
+            <button id="busqueda" class="btn btn-block btn-primary">Busqueda</button>
+        </div>
+        <div id="formB" class="col-sm-5 hide">
+            {!! Form::open(array('url' => '/4semanas/buscando', 'method' => 'post', 'class'=>'form-inline')) !!}
+                <div class="form-group">
+                    <label>Chasis:</label>
+                    <input type="text" class="form-control" name="chasis" id="chasis" required>
+                </div>
+                {!! Form::submit('Buscar', ["class" => "btn btn-success"]) !!}
+            {!! Form::close() !!}
         </div>
     </div>
 </div>

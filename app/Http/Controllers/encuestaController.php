@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Transaction;
 use Log;
 use App\Registro;
+use App\SEncuesta;
 
 class encuestaController extends Controller
 {
@@ -27,6 +28,7 @@ class encuestaController extends Controller
     public function servicio()
     {
         $registro = Registro::orderBy('id_registro', 'DESC')->paginate(50);
+        //$registro = Registro::where();
         return view('callcenter/servicio', compact('registro'));
     }
     public function ventas()
@@ -44,7 +46,8 @@ class encuestaController extends Controller
         //dd($request);
         //isset($request->acepta)?:$request->acepta=null;
         //dd($request->acepta);
-        Registro::create([
+        SEncuesta::create([
+            'id_registro' =>$request->id_registro,
             'acepta' => $request->acepta,
             'reprograma' =>$request->butonReprograma,
             'fecha_reprograma' =>$request->reprograma,
@@ -82,7 +85,7 @@ class encuestaController extends Controller
             'comentarios' =>$request->comentarios
         ]);
         $registro = Registro::orderBy('id_registro', 'DESC')->paginate(50);
-        \Alert::message('Encuesta guardada', 'warning');
+        \Alert::message('Encuesta guardada', 'success');
         return view('callcenter.servicio', compact('registro'));
     }
 

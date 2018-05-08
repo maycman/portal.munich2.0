@@ -78,7 +78,7 @@ class cuatroSemanasController extends Controller
     public function show(Request $req)
     {
         #dd($req);
-        $datos =Auto::where('chasis',$req->chasis)->get();
+        $datos =Auto::where('chasis', 'like','%'.$req->chasis.'%')->get();
         $q=null;
         foreach ($datos as $key)
         {

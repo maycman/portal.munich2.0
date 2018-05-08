@@ -14,7 +14,10 @@ class CreateSEncuestasTable extends Migration
     public function up()
     {
         Schema::create('s_encuestas', function (Blueprint $table) {
+            $table->engine = 'InnoDB';
             $table->increments('id');
+            $table->integer('id_registro')->unsigned();
+            $table->foreign('id_registro')->references('id_registro')->on('registros');
             $table->string('acepta', 10)->nullable();
             $table->string('reprograma', 10)->nullable();
             $table->string('fecha_reprograma', 50)->nullable();
@@ -46,9 +49,10 @@ class CreateSEncuestasTable extends Migration
             $table->string('p5c', 10)->nullable();
             $table->string('p5d', 10)->nullable();
             $table->string('p6', 10)->nullable();
-            $table->string('p6a', 10)->nullable();
+            $table->string('p6a', 400)->nullable();
             $table->string('p7', 10)->nullable();
             $table->string('comentarios', 400)->nullable();
+            $table->timestamps();
         });
     }
 

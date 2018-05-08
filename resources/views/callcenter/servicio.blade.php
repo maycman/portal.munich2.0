@@ -15,12 +15,16 @@
 			</div>
 		</div>
 		<div class="row">
+			<div class="col-sm-offset-4 col-sm-6">
+				{!! $registro->render() !!}
+			</div>
+		</div>
+		<div class="row">
 			<div class="col-sm-12">
 				<!--div class="table-responsive"-->
 					<table class="table table-striped">
 						<thead>
 							<tr>
-								<th>Id</th>
 								<th>Orden</th>
 								<th>Fecha Orden</th>
 								<th>Modelo</td>
@@ -43,7 +47,6 @@
 							<tr>		
 								<form class="form" method="get" action="servicio/{{ $reg->id_registro }}">
 								{!! csrf_field() !!}
-								<th>{{ $reg->id_registro }}</th>
 								<td>{{ $reg->no_orden }}</td>
 								<td>{{ $reg->fecha_insercion }}</td>
 								<td>{{ $reg->nombre_modelo }}</td>
@@ -71,11 +74,6 @@
 						</tbody>
 					</table>
 				<!--/div-->
-			</div>
-		</div>
-		<div class="row">
-			<div class="col-sm-offset-4 col-sm-6">
-				{!! $registro->render() !!}
 			</div>
 		</div>
 	</div>
