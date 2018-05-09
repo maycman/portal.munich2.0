@@ -1,6 +1,6 @@
 html, body
 {
-	background-color: /*#3E7CB1*/#EEE5E9;
+	background-color: /*#3E7CB1*/#5C7AFF;
 	height:100%;
 	margin:0;
 }
@@ -14,7 +14,7 @@ body
 }
 #wrap
 {
-	background-color: /*#a5bcc0*/#EEE5E9;
+	background-color: /*#a5bcc0*/#5C7AFF;
 	margin-top: 6em;
 	margin-bottom: 5em;
 	position: relative;
@@ -95,13 +95,4 @@ body
 .hide
 {
 	display:none;
-}
-.well
-{
-	background-color: #3E7CB1 !important;
-}
-.alert-primary
-{
-	background-color: #3E7CB1;
-	color: #111D4A;
 }

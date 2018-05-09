@@ -7,6 +7,8 @@ use App\Transaction;
 use Illuminate\Support\Facades\Input;
 use Log;
 use App\Registro;
+use App\SEncuesta;
+use App\Completadas;
 use Excel;
 
 class baseEncuestaController extends Controller
@@ -27,7 +29,7 @@ class baseEncuestaController extends Controller
 		{
 			foreach ($reader->get() as $base)
 			{
-				Registro::create([
+				$fuente = Registro::create([
 					'concesionaria' => $base->no_concesionario,
 					'empresa' =>$base->empresa,
 					'razon_social' =>$base->razonsocial,
@@ -76,6 +78,12 @@ class baseEncuestaController extends Controller
 					'tecnico' =>$base->tecnico,
 					'contactable' =>$base->contacto,
 					'cache' =>$base->comentarios
+				]);
+				$encuesta = new SEncuesta;
+				$encuesta->save();
+				Completadas::create([
+					'id_registro' => $fuente->id,
+					'id_s_encuestas' => $encuesta->id
 				]);
 			}
 		});

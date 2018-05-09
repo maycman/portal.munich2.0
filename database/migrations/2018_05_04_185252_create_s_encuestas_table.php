@@ -16,8 +16,6 @@ class CreateSEncuestasTable extends Migration
         Schema::create('s_encuestas', function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->increments('id');
-            $table->integer('id_registro')->unsigned();
-            $table->foreign('id_registro')->references('id_registro')->on('registros');
             $table->string('acepta', 10)->nullable();
             $table->string('reprograma', 10)->nullable();
             $table->string('fecha_reprograma', 50)->nullable();

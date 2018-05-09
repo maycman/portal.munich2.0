@@ -6,82 +6,82 @@
 				<button class="btn btn-danger" onclick="history.back(-1)"><span class="glyphicon glyphico	n-menu-left"></span> Volver</button>
 			</div>
 			<div class="col-sm-2">
-				<div class="alert alert-primary">
+				<div class="alert alert-info">
 					<p><strong>Fecha entrada: </strong>{{ $consulta->fecha_entrada }}</p>
 				</div>
 			</div>
 			<div class="col-sm-2">
-				<div class="alert alert-primary">
+				<div class="alert alert-info">
 					<p><strong>Fecha factura: </strong>{{ $consulta->fecha_insercion }}</p>
 				</div>
 			</div>
 			<div class="col-sm-2">
-				<div class="alert alert-primary">
+				<div class="alert alert-info">
 					<p><strong>Automovil: </strong>{{ $consulta->nombre_modelo }}</p>
 				</div>
 			</div>
 			<div class="col-sm-2">
-				<div class="alert alert-primary">
+				<div class="alert alert-info">
 					<p><strong>Modelo: </strong>{{ $consulta->ano_modelo }}</p>
 				</div>
 			</div>
 			<div class="col-sm-3">
-				<div class="alert alert-primary">
+				<div class="alert alert-info">
 					<p><strong>No. Serie: </strong>{{ $consulta->chasis }}</p>
 				</div>
 			</div>
 		</div>
 		<div class="row">
 			<div class="col-sm-3 col-sm-offset-1">
-				<div class="alert alert-primary">
+				<div class="alert alert-info">
 					<p><STRONG>Empresa: </STRONG>{{ $consulta->razon_social }}</p>
 				</div>
 			</div>
 			<div class="col-sm-3">
-				<div class="alert alert-primary">
+				<div class="alert alert-info">
 					<p><STRONG>Nombre: </STRONG>{{ $consulta->nombre.' '.$consulta->ap_paterno.' '.$consulta->ap_materno}}</p>
 				</div>
 			</div>
 			<div class="col-sm-2">
-				<div class="alert alert-primary">
+				<div class="alert alert-info">
 					<p><strong>Telefono:</strong>{{ '('.$consulta->lada.') '.$consulta->telefono1 }}</p>
 					<p><strong>Ext: </strong>{{ $consulta->ext1 }}</p>
 				</div>
 			</div>
 			<div class="col-sm-2">
-				<div class="alert alert-primary">
+				<div class="alert alert-info">
 					<p><strong>Celular: </strong>{{ '('.$consulta->lada_cel.') '.$consulta->celular }}</p>
 				</div>
 			</div>
 		</div>
 		<div class="row">
 			<div class="col-sm-2">
-				<div class="alert alert-primary">
+				<div class="alert alert-info">
 					<p><strong>Telefono 2: </strong> {{ '('.$consulta->lada3.') '.$consulta->telefono3 }}</p>
 				</div>
 			</div>
 			<div class="col-sm-2">
-				<div class="alert alert-primary">
+				<div class="alert alert-info">
 					<p><strong>Telefono 3: </strong>{{ '('.$consulta->lada4.') '.$consulta->telefono4 }}</p>
 				</div>
 			</div>
 			<div class="col-sm-2">
-				<div class="alert alert-primary">
+				<div class="alert alert-info">
 					<p><strong>Correo electronico: </strong>{{ $consulta->email }}</p>
 				</div>
 			</div>
 			<div class="col-sm-2">
-				<div class="alert alert-primary">
+				<div class="alert alert-info">
 					<p><strong>Correo electronico alterno: </strong>{{ $consulta->email2 }}</p>
 				</div>
 			</div>
 			<div class="col-sm-2">
-				<div class="alert alert-primary">
+				<div class="alert alert-info">
 					<p><strong>Contacto: </strong>{{ $consulta->nombre_contacto.' '.$consulta->app_contacto.' '.$consulta->apm_contacto }}</p>
 				</div>
 			</div>
 			<div class="col-sm-2">
-				<div class="alert alert-primary">
+				<div class="alert alert-info">
 					<p><strong>Telefono contacto: </strong>{{ '('.$consulta->lada_contacto.') '.$consulta->telofono_contacto}}</p>
 				</div>
 			</div>

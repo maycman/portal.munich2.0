@@ -16,7 +16,7 @@ class CreateAutosTable extends Migration
         Schema::create('autos', function (Blueprint $table) {
             $table->increments('id_auto');
             $table->date('fecha_llegada');
-            $table->string('chasis');
+            $table->string('chasis')->unique();
             $table->string('tipo_auto');
             $table->string('ultimo_servicio')->nullable();
             $table->date('fecha_ultimo_servicio')->nullable();
