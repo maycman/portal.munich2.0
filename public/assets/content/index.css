@@ -1,6 +1,6 @@
 html, body
 {
-	background-color: /*#3E7CB1*/#5C7AFF;
+	background-color: /*#3E7CB1*/#e0f7fa;
 	height:100%;
 	margin:0;
 }
@@ -14,7 +14,7 @@ body
 }
 #wrap
 {
-	background-color: /*#a5bcc0*/#5C7AFF;
+	background-color: /*#a5bcc0*/#e0f7fa;
 	margin-top: 6em;
 	margin-bottom: 5em;
 	position: relative;
@@ -41,7 +41,7 @@ body
 }
 .buffer-top
 {
-	margin-top:10em;
+	margin-top:5em;
 }
 .file
 {

@@ -14,11 +14,11 @@
 		</div>
 		<div class="row">
 			<div class="col-sm-offset-3 col-sm-3">
-				<a class="btn btn-primary btn-lg" href="/encuestas/servicio">Encuestas de servicio</a>
+				<a class="btn btn-success btn-lg" href="/encuestas/servicio">Encuestas de servicio</a>
 			</div>
-			<div class="col-sm-3">
+			<!--div class="col-sm-3">
 				<a class="btn btn-success btn-lg" href="/encuestas/ventas">Encuesta de Ventas</a>
-			</div>
+			</div-->
 		</div>
 	</div>
 @endsection

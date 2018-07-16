@@ -1,7 +1,23 @@
 $(document).ready(function(){
+
+	//Ayuda al navbar a colocar la clase active en el area correspondiente
 	classActive();
+	
+	
+	//Coloca la clase primary sobre el boton correcto en encuestas de servicio
 	calendarioForms();
+	
+	
+	//Animación para un buscador en el area de 4 semanas
 	formBuscar();
+	
+	
+	/*Script que muestra el nombre del archivo que se carga al input
+	  para la base de datos de las encuestas de servicio*/
+	showNameFile();
+
+
+	//loading();
 });
 
 
@@ -15,20 +31,43 @@ function classActive()
 	//Primero obtenemos la palabra despues de la ultima '/'
 	var pag = location.href.substring(location.href.lastIndexOf('/')+1, location.href.lastIndexOf(''));
 	//Evaluamos en que pagina estamos
-	if (pag=="encuesta")
+	if (pag=="encuestas" || pag=='encuestas/servicio' || pag=='servicio')
 	{
 		$('#'+pag).addClass("active");
 		$('#mdrop').addClass("active");
+		$('#'+'btn-carga').removeClass();
+		$('#'+'btn-encuestas').removeClass();
+		$('#'+'btn-reportes').removeClass();
+		$('#'+'btn-encuestas').addClass('btn btn-primary');
+		$('#'+'btn-reportes').addClass('btn btn-default');
+		$('#'+'btn-carga').addClass('btn btn-default');
 	}
 	else if(pag=='carga')
 	{
 		$('#'+pag).addClass("active");
 		$('#mdrop').addClass("active");
+		$('#'+'btn-carga').removeClass();
+		$('#'+'btn-encuestas').removeClass();
+		$('#'+'btn-reportes').removeClass();
+		$('#'+'btn-carga').addClass('btn btn-primary');
+		$('#'+'btn-reportes').addClass('btn btn-default');
+		$('#'+'btn-encuestas').addClass('btn btn-default');
 	}
 	else if(pag=='4semanas')
 	{
 		$('#'+pag).addClass("active");
 		$('#servicioDrop').addClass("active");
+	}
+	else if(pag=='reportes')
+	{
+		$('#'+pag).addClass("active");
+		$('#mdrop').addClass("active");
+		$('#'+'btn-carga').removeClass();
+		$('#'+'btn-encuestas').removeClass();
+		$('#'+'btn-reportes').removeClass();
+		$('#'+'btn-carga').addClass('btn btn-default');
+		$('#'+'btn-reportes').addClass('btn btn-primary');
+		$('#'+'btn-encuestas').addClass('btn btn-default');
 	}
 	else if(pag=="")
 	{
@@ -47,14 +86,82 @@ function calendarioForms()
 	});
 	//$('.nuevaFecha').datepicker('update', new Date());
 }
+function formBuscar()
+{
+	var form = $('#formB');
+	$('#busqueda').click(function(){
+		if (form.attr('class')=='col-sm-5 hide')
+		{
+			form.removeClass();
+			form.addClass('col-sm-5 animated bounceInUp');
+		}
+		else
+		{
+			form.removeClass();
+			form.addClass('col-sm-5 hide');
+		}
+	});
+}
+function showNameFile()
+{
+	try
+	{
+		document.getElementById('cargaFile').onchange = function ()
+		{
+  			console.log(this.value);
+  			document.getElementById('nombre').innerHTML = document.getElementById('cargaFile').files[0].name;
+		}
+	}
+	catch(err)
+	{
+		$('#nombre').innerHTML = err.message;
+	}
+}
+function intentos()
+{
+	/*Esta funcion esconde o muestra la encuesta en el apartado de 
+	  CallCenter->Encuestas->encuesta servicio->Iniciar Encuesta*/
+	var butt = $('#contactable');
+	var form = $('#contacto');
+	var razon = $('#noContacto');
+	if (butt.prop('checked'))
+	{
+        /*Este removeClass hace que al darle click muchas veces siempre 
+          funcione el checkbox*/
+        form.removeClass();
+        razon.removeClass();
+       	form.addClass('animated rollIn');
+       	razon.addClass('animated rollOut');
+       	razon.find('input, textarea, button, select').attr('required', false);
+       	setTimeout(function(){razon.addClass('hide');}, 500);
+    }
+    else
+    {
+        form.removeClass();
+        razon.removeClass();
+        //Crea una animacion para ocultar la encuesta pero deja un espacio grande
+       	form.addClass('animated rollOut');
+       	//Muestra un combo con la razón de no contacto
+       	razon.addClass('animated rollIn');
+       	//Quitamos required de todos los campos del div Preguntas
+       	form.find('input, textarea, button, select').attr('required', false);
+       	razon.find('input, textarea, button, select').attr('required', true);
+       	/*Se agrega una clase despues del tiempo de la animación para 
+       	  ocultarla completamente*/
+       	setTimeout(function(){form.addClass('hide');}, 500);
+    }
+}
+
 function aceptaEncuesta()
 {
-	//Esta funcion esconde o muestra la encuesta en el apartado de CallCenter->Encuestas->encuesta servicio->Iniciar Encuesta
+	/*Esta funcion esconde o muestra la encuesta en el apartado de 
+	  CallCenter->Encuestas->encuesta servicio->Iniciar Encuesta*/
 	var butt = $('#acepta');
 	var form = $('#preguntas');
 	if (butt.prop('checked'))
 	{
-        //Este removeClass hace que al darle click muchas veces siempre funcione el checkbox
+        /*Este removeClass hace que al darle click muchas veces siempre 
+          funcione el checkbox*/
         form.removeClass();
         //Activamos los campos de la encuesta
         //Activamos required de todos los campos del div Preguntas
@@ -74,13 +181,15 @@ function aceptaEncuesta()
        	//form.find('input, textarea, button, select').attr('disabled', true);
        	//Quitamos required de todos los campos del div Preguntas
        	form.find('input, textarea, button, select').attr('required', false);
-       	//Se agrega una clase despues del tiempo de la animación para ocultarla completamente
+       	/*Se agrega una clase despues del tiempo de la animación para 
+       	  ocultarla completamente*/
        	setTimeout(function(){form.addClass('hide');}, 500);
     }
 }
 function llamarLuego()
 {
-	/*Esta funcion permite ocultar la encuesta y mostrar un input para reprogramarla de nuevo en la parte de
+	/*Esta funcion permite ocultar la encuesta y mostrar un input para 
+	  reprogramarla de nuevo en la parte de
 	  CallCenter->Encuestas->Encuesta Servicio->Iniciar encuesta*/
 	var llamar = $('#butonReprograma');
 	var encuesta = $('#questions');
@@ -88,7 +197,8 @@ function llamarLuego()
 	var inputFecha = $('#reprograma');
     if (llamar.prop('checked'))
     {
-    	//Estos removeClass hacen que al darle click muchas veces siempre funcione el checkbox
+    	/*Estos removeClass hacen que al darle click muchas veces siempre 
+    	  funcione el checkbox*/
     	encuesta.removeClass();
     	fecha.removeClass();
     	//Agregamos animación de entrada al input de fecha para reprogramar la encuesta
@@ -124,7 +234,7 @@ function llamarLuego()
 
 function pregunta2()
 {
-	var select = $("#p2");
+	var select = $("#2");
 	var content = $("#p2Negativo");
 	if (select.val()<=7)
 	{
@@ -135,7 +245,7 @@ function pregunta2()
 	else
 	{
 		content.removeClass();
-		content.addClass("animated zoomOut");
+		//content.addClass("animated zoomOut");
 		setTimeout(function(){content.addClass('hide');}, 500);
 		content.find('input, textarea, button, select').attr('required', false);
 	}
@@ -143,7 +253,7 @@ function pregunta2()
 
 function pregunta3()
 {
-	var select = $("#p3");
+	var select = $("#9");
 	var content = $("#p3Negativa");
 	if (!select.prop('checked'))
 	{
@@ -153,7 +263,7 @@ function pregunta3()
 	else
 	{
 		content.removeClass();
-		content.addClass("animated zoomOut");
+		//content.addClass("animated zoomOut");
 		setTimeout(function(){content.addClass('hide');}, 500);
 		content.find('input, textarea, button, select').attr('required', false);
 	}
@@ -171,14 +281,14 @@ function respOtro()
 	else
 	{
 		content.removeClass();
-		content.addClass(" row animated zoomOut");
+		//content.addClass(" row animated zoomOut");
 		setTimeout(function(){content.addClass('hide');}, 500);
 		content.find('input, textarea, button, select').attr('required', false);
 	}
 }
 function pregunta4()
 {
-	var select = $('#p4');
+	var select = $('#18');
 	var content = $('#p4Negativa');
 	if (select.val()<=7)
 	{
@@ -189,14 +299,14 @@ function pregunta4()
 	else
 	{
 		content.removeClass();
-		content.addClass("animated zoomOut");
+		//content.addClass("animated zoomOut");
 		setTimeout(function(){content.addClass('hide');}, 500);
 		content.find('input, textarea, button, select').attr('required', false);
 	}
 }
 function pregunta5()
 {
-	var select = $('#p5');
+	var select = $('#23');
 	var content = $('#p5Negativo');
 	if (select.val()<=7)
 	{
@@ -207,7 +317,7 @@ function pregunta5()
 	else
 	{
 		content.removeClass();
-		content.addClass("animated zoomOut");
+		//content.addClass("animated zoomOut");
 		setTimeout(function(){content.addClass('hide');}, 500);
 		content.find('input, textarea, button, select').attr('required', false);
 	}
@@ -217,7 +327,8 @@ function pregunta5()
 
 function agregarServicio()
 {
-	//Esta función oculta o muestra campos para agregar el servicio desde que ingresas un nuevo auto en Servicio->4 semanas->nuevo registro
+	/*Esta función oculta o muestra campos para agregar el servicio desde 
+	  que ingresas un nuevo auto en Servicio->4 semanas->nuevo registro*/
 	var button = $("#boton");
 	var campos = $("#datosServicio");
 	if (button.prop('checked'))
@@ -240,13 +351,18 @@ function liberarAuto()
 }
 function modificarFecha(param)
 {
-	/*Esta funcion es para el apartado de Servicio->4 semanas->Agregar servicio para la correcta recolección de las fechas*/
+	/*Esta funcion es para el apartado de Servicio->4 semanas->Agregar servicio
+	  para la correcta recolección de las fechas*/
 
-	/*Primero obtener el id de la fecha a cambiar ya que el input es readonly y aun no tiene la propiedad Datetimepicker con la propiedad substring
-	  quitamos los primeros 8 caracteres de la variable param para obtener parte del id correcto algo similar a 'fecha_llegada' este ser el id del input*/
+	/*Primero obtenemos el id de la fecha a cambiar ya que el input es readonly 
+	  y aun no tiene la propiedad Datetimepicker con la propiedad substring
+	  quitamos los primeros 8 caracteres de la variable param para obtener parte 
+	  del id correcto algo similar a 'fecha_llegada' este ser el id del input*/
     idInput = param.substring(8);
-    /*Con la propiedad replace recorremos la variable idInput que acabamos de obtener para que cada vez que encuentre un '_' lo reemplaze por '-' de
-      de esta forma ya tenemos el id de el elemento div fecha para poder agregarle las propiedades de DateTimePicker*/
+    /*Con la propiedad replace recorremos la variable idInput que acabamos de 
+      obtener para que cada vez que encuentre un '_' lo reemplaze por '-' de
+      de esta forma ya tenemos el id de el elemento div fecha para poder agregarle 
+      las propiedades de DateTimePicker*/
 	idAge = idInput.replace(/_/g,'-');
 
 
@@ -257,21 +373,5 @@ function modificarFecha(param)
 	/*Y agregamos la funcionalidad de DateTimePicker sin recargar la pagina de nuevo*/
 	$('.age').datetimepicker({
 		format: 'L'
-	});
-}
-function formBuscar()
-{
-	var form = $('#formB');
-	$('#busqueda').click(function(){
-		if (form.attr('class')=='col-sm-5 hide')
-		{
-			form.removeClass();
-			form.addClass('col-sm-5 animated bounceInUp');
-		}
-		else
-		{
-			form.removeClass();
-			form.addClass('col-sm-5 hide');
-		}
 	});
 }

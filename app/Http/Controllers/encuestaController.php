@@ -5,11 +5,10 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Transaction;
-use Log;
+use App\Encuesta;
 use App\Registro;
-use App\SEncuesta;
-use App\Completadas;
-
+use App\Pregunta;
+use App\Respuesta;
 class encuestaController extends Controller
 {
     /**
@@ -17,11 +16,16 @@ class encuestaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    //Este constructor siempre te pide que tengas sesión iniciada
+    public function __construct()
     {
+        $this->middleware('auth');
+    }
+    public function index(Request $request)
+    {
+        $request->user()->authorizeRoles(['admin', 'viewer', 'service']);
         return view('callcenter/inicio');
     }
-
     /**
      * Show the form for creating a new resource.
      *
@@ -29,23 +33,9 @@ class encuestaController extends Controller
      */
     public function servicio()
     {
-        #$registro = Registro::orderBy('id_registro', 'DESC')->paginate(50);
-        $registro = DB::table('registros')
-            ->join('completadas', function ($join){
-                $join->on('registros.id_registro', '=', 'completadas.id_registro')
-                ->where('completadas.estado', '=', null);})
-            ->orderBy('registros.id_registro', 'DESC')
-            ->paginate(50);
-
-        $reprogramadas = DB::table('completadas')
-            ->join('registros', 'completadas.id', '=', 'registros.id_registro')
-            ->join('s_encuestas', function($join){
-                $join->on('completadas.id', '=', 's_encuestas.id')
-                    ->where('s_encuestas.reprograma','on');})
-            ->select('registros.*', 's_encuestas.fecha_reprograma')
-            ->get();
-
-
+        #Esta es una simple consulta con scope
+        $registro = Registro::ShowEncuestas()->paginate(50);
+        $reprogramadas = Registro::ShowReprogramadas();
         return view('callcenter/servicio',compact('registro','reprogramadas'));
     }
     public function ventas()
@@ -60,65 +50,12 @@ class encuestaController extends Controller
      */
     public function store(Request $request)
     {
-        //dd($request);
-        DB::table('s_encuestas')
-            ->where('id', $request->id_registro)
-            ->update([
-                'acepta' => $request->acepta,
-                'reprograma' =>$request->butonReprograma,
-                'fecha_reprograma' =>$request->reprograma,
-                'p1' =>$request->p1,
-                'p2' =>$request->p2,
-                'p2a' =>$request->p2a,
-                'p2b' =>$request->p2b,
-                'p2c' =>$request->p2c,
-                'p2d' =>$request->p2d,
-                'p2e' =>$request->p2e,
-                'p2f' =>$request->p2f,
-                'p3' =>$request->p3,
-                'disp_refacciones' =>$request->ra,
-                'problema_no_determinado' =>$request->rb,
-                'falla_de_nuevo' =>$request->rc,
-                'trabajo_parcial' =>$request->rd,
-                'taller_causo_problema' =>$request->re,
-                'taller_nego_problema' =>$request->rf,
-                'taller_ocupado' =>$request->rg,
-                'otro' =>$request->hrComent,
-                'p4' =>$request->p4,
-                'p4a' =>$request->p4a,
-                'p4b' =>$request->p4b,
-                'p4c' =>$request->p4c,
-                'p4d' =>$request->p4d,
-                'p5' =>$request->p5,
-                'p5a' =>$request->p5a,
-                'p5b' =>$request->p5b,
-                'p5c' =>$request->p5c,
-                'p5d' =>$request->p5d,
-                'p6' =>$request->p6,
-                'p6a' =>$request->p6a,
-                'p7' =>$request->p7,
-                'comentarios' =>$request->comentarios]);
-        if ($request->butonReprograma!=null || $request->butonReprograma!='')
-        {
-            DB::table('completadas')
-                ->where('id_registro', $request->id_registro)
-                ->update(['estado' => 'completada']);
-        }
-        $registro = DB::table('registros')
-            ->join('completadas', function ($join){
-                $join->on('registros.id_registro', '=', 'completadas.id_registro')
-                ->where('completadas.estado', '=', null);})
-            ->orderBy('registros.id_registro', 'DESC')
-            ->paginate(50);
-
-        $reprogramadas = DB::table('completadas')
-            ->join('registros', 'completadas.id', '=', 'registros.id_registro')
-            ->join('s_encuestas', function($join){
-                $join->on('completadas.id', '=', 's_encuestas.id')
-                    ->where('s_encuestas.reprograma','on');})
-            ->select('registros.*')
-            ->get();
-
+        #Guardamos la encuesta
+        Encuesta::saveEncuesta($request);
+        $registro = Registro::ShowEncuestas()->paginate(50);
+        $reprogramadas = Registro::ShowReprogramadas();
+        
+        \Alert::message('Encuesta Guardada Satisfactoriamente', 'info');
         return view('callcenter/servicio', compact('registro', 'reprogramadas'));
     }
 
@@ -130,12 +67,9 @@ class encuestaController extends Controller
      */
     public function show($id)
     {
-        #Log::debug('------------------------------------------------------------------------------------------------------');
-        #Log::debug($id);
         $consulta = Registro::where('id_registro',$id)->first();
-        #Log::debug('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>');
-        #Log::debug($consulta);
-        return view("callcenter.llenado", compact('consulta'));
+        $encuesta = Encuesta::where('id_registro',$id)->first();
+        return view("callcenter.llenado", compact('consulta','encuesta'));
     }
 
     /**

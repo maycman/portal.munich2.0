@@ -13,17 +13,9 @@
     			<img id="volks" class="img-responsive" src="/assets/images/gelogo.png" alt="Image Responsive">
     		</div>
     		<div class="col-sm-10"> 
-    			<ul class="nav navbar-nav">   			
+    			<ul class="nav navbar-nav">	
         			<li id="home"><a href="/">Inicio</a></li>
-					<li id="mdrop" class="dropdown">
-						<a href="#" class="dropdown-toggle" data-toggle="dropdown">Call Center <b class="caret"></b></a>
-	        			<ul class="dropdown-menu">
-	          				<li id="encuesta"><a href="/encuestas">Encuestas</a></li>
-	          				<li><a href="#">Reportes</a></li>
-	          				<li id="carga"><a href="/carga">Cargar base de datos</a></li>
-	          				<li><a href="#">Otros</a></li>
-	        			</ul>
-	      			</li>
+					<li id="mdrop"><a href="/encuestas">Call Center</a></li>
         			<li><a href="#">Ventas</a></li>
                     <li id="servicioDrop" class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Servicio <b class="caret"></b></a>
@@ -34,6 +26,29 @@
                         </ul>
                     </li>
         		</ul>
+                <ul class="nav navbar-nav navbar-right">
+                    @guest
+                        <li><a href="{{ route('login') }}">Iniciar Sesión</a></li>
+                        <!--li><a href="{{ route('register') }}">Register</a></li-->
+                    @else
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" v-pre>
+                                    {{ Auth::user()->name }} <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a href="{{ route('logout') }}"
+                                        onclick="event.preventDefault();
+                                            document.getElementById('logout-form').submit();">
+                                        Salir
+                                    </a>
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                        {{ csrf_field() }}
+                                    </form>
+                                </li>
+                            </ul>
+                        </li>
+                    @endguest
+                </ul>
         	</div>
         </div>
     </nav>

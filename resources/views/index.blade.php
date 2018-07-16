@@ -2,7 +2,7 @@
 @section("content")
 	<div class="container-fluid">
 		<div class="row">
-			<div class="col-sm-offset-1 col-sm-9">
+			<div class="col-sm-offset-1 col-sm-10">
 				<div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
 					<!-- Indicators -->
 					<ol class="carousel-indicators">

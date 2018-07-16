@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Transaction;
-use Log;
 use App\Auto;
 
 class cuatroSemanasController extends Controller
@@ -14,8 +14,13 @@ class cuatroSemanasController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function __construct()
     {
+        $this->middleware('auth');
+    }
+    public function index(Request $request)
+    {
+        $request->user()->authorizeRoles(['admin', 'viewer', 'sellers']);
         $datos =Auto::where('estado','')->orWhere('estado',null)->orderBy('id_auto', 'DESC')->paginate(50);
         return view("autos.list", compact('datos'));
     }
@@ -78,6 +83,21 @@ class cuatroSemanasController extends Controller
     public function show(Request $req)
     {
         #dd($req);
+        /*#Buscamos que el chasis y generamos la colección
+        $datos = DB::table('autos')->where('chasis', 'like','%'.$req->chasis.'%')->get();
+
+        #Usamos este metodo con first() al final para traer un array y validar que existe o no un registro
+        $data = DB::table('autos')
+            ->where('chasis', 'like','%'.$req->chasis.'%')
+            ->first();
+        if ($datos->id_auto<>null or $datos->id_auto<>"")
+        {
+            \Alert::message('Chasis encontrado', 'success');
+        }
+        else
+        {
+            \Alert::message('No encontrado', 'danger');
+        }*/
         $datos =Auto::where('chasis', 'like','%'.$req->chasis.'%')->get();
         $q=null;
         foreach ($datos as $key)

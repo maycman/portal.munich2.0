@@ -5,89 +5,62 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Transaction;
 use Illuminate\Support\Facades\Input;
-use Log;
 use App\Registro;
-use App\SEncuesta;
-use App\Completadas;
 use Excel;
 
 class baseEncuestaController extends Controller
 {
+	//Este constructor siempre te pide que tengas sesión iniciada
+	public function __construct()
+    {
+        $this->middleware('auth');
+    }
+    //Este metodo te envia a la vista para cargala base
     public function index()
 	{
 		return view('callcenter/carga');
 	}
+	//Aqui se carga la base directo del CSV a la Base de datos
 	public function servicio(Request $request)
 	{
+		//Verificamos que el Input no se encuentre vacio
 		if(!\Input::file("base"))
     	{
-        	return redirect('/')->with('error-message', 'Donde veo este prro mensaje?');
+        	return redirect('/')->with('error-message', 'No se recibio un input tipo File');
     	}
+
+		//Obtenemos el archivo en una variable para manipularlo mas adelante
 		$file = $request->file('base');
+
+		//Obtenemos el nombre del archivo
 		$nombre = $file->getClientOriginalName();
-		Excel::load($file, function($reader)
+
+		//Verificamos que sea un archivo CSV
+		$array = explode(".", $nombre);
+		#$array[0]; // Nombre sin extensión
+		#$array[1]; // Extensión
+		if($array[1]=='csv'||$array=='CSV')
 		{
-			foreach ($reader->get() as $base)
+			//Utilizamos el Facade Excel para importar los datos del CSV
+			Excel::load($file, function($reader)
 			{
-				$fuente = Registro::create([
-					'concesionaria' => $base->no_concesionario,
-					'empresa' =>$base->empresa,
-					'razon_social' =>$base->razonsocial,
-					'nombre' =>$base->nombre,
-					'ap_paterno' =>$base->apellido,
-					'ap_materno' =>$base->apellidomaterno,
-					'sexo' =>$base->sexo,
-					'estado' =>$base->estado,
-					'ciudad' =>$base->ciudad,
-					'calle' =>$base->calle,
-					'num' =>$base->numero,
-					'colonia' =>$base->colonia,
-					'municipio' =>$base->delegacionmunicipio,
-					'codigo_postal' =>$base->cp,
-					'lada' =>$base->lada,
-					'telefono1' =>$base->telefono1,
-					'ext1' =>$base->ext1,
-					'lada_cel' =>$base->lada_celular,
-					'lada3' =>$base->lada3,
-					'celular' =>$base->celular,
-					'telefono3' =>$base->telefono3,
-					'lada4' =>$base->lada4,
-					'telefono4' =>$base->telefono4,
-					'email' =>$base->mail,
-					'email2' =>$base->mail2,
-					'nombre_contacto' =>$base->nombre_contacto,
-					'app_contacto' =>$base->apellido_contacto,
-					'apm_contacto' =>$base->apellido_materno_contacto,
-					'lada_contacto' =>$base->lada_contacto,
-					'telofono_contacto' =>$base->telefono_contacto,
-					'nombre_modelo' =>$base->nombremodelo,
-					'modelo' =>$base->modelo,
-					'chasis' =>$base->chasis,
-					'placa' =>$base->placa,
-					'fecha_entrada' =>$base->fechaentrada,
-					'fecha_servicio' =>$base->fechaservicio,
-					'KM' =>$base->km,
-					'tipo_servicio' =>$base->tiposervicio,
-					'costo' =>$base->costo,
-					'no_orden' =>$base->noorden,
-					'fecha_insercion' =>$base->fechainsercion,
-					'ano_modelo' =>$base->añomodelo,
-					'nombre_asesor' =>$base->asesornombre,
-					'app_asesor' =>$base->asesorapp,
-					'apm_asesor' =>$base->asesorapm,
-					'tecnico' =>$base->tecnico,
-					'contactable' =>$base->contacto,
-					'cache' =>$base->comentarios
-				]);
-				$encuesta = new SEncuesta;
-				$encuesta->save();
-				Completadas::create([
-					'id_registro' => $fuente->id,
-					'id_s_encuestas' => $encuesta->id
-				]);
-			}
-		});
-		\Alert::message('Base de datos Cargada Correctamente', 'info');
-		return view('callcenter/carga');
+				//Recorremos la colección de datos del CSV
+				foreach ($reader->get() as $base)
+				{
+					//Importamos los datos del CSV a la Base de datos
+					Registro::saveRegistro($base->all());
+				}
+			});
+
+			//Creamos una alerta para la vista
+			\Alert::message('Base de datos '.$nombre.' Cargada Correctamente', 'info');
+			return view('callcenter/carga');
+		}
+		else
+		{
+			//Creamos una alerta para la vista indicando que el archivo cargado no es correcto
+			\Alert::message('Archivo incorrecto '.$nombre.' no es un CSV delimitado por comas', 'danger');
+			return view('callcenter/carga');
+		}
 	}
 }

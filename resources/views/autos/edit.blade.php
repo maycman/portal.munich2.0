@@ -5,7 +5,7 @@
 		<div class="row">
 			<div class="col-md-6 animated rotateInDownLeft">
 				<h1>¡Hola!</h1>
-				{!! Form::open(array('url' => '/4semanas/guarda', 'method' => 'post')) !!}
+				{!! Form::open(array('url' => '/4semanas', 'method' => 'post')) !!}
           {!! Form::hidden('id_auto', $registro->id_auto, array('id' => 'id_auto')) !!}
 				<fieldset>
   				<legend>Datos del auto</legend>

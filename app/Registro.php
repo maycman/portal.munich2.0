@@ -3,62 +3,95 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
+use App\Encuesta;
 
 class Registro extends Model
 {
+    protected $guarded = ['id_registro'];
     protected $fillable = [
-    	'concesionaria',
+    	'no_concesionario',
     	'empresa',
-    	'razon_social',
+    	'razonsocial',
     	'nombre',
-    	'ap_paterno',
-    	'ap_materno',
+    	'apellido',
+    	'apellidomaterno',
     	'sexo',
-    	'estado',
-    	'ciudad',
-    	'calle',
-    	'num',
-    	'colonia',
-    	'municipio',
-    	'codigo_postal',
     	'lada',
     	'telefono1',
     	'ext1',
-    	'lada_cel',
+    	'lada_celular',
     	'lada3',
     	'celular',
     	'telefono3',
     	'lada4',
     	'telefono4',
-    	'email',
-    	'email2',
+    	'mail',
+    	'mail2',
     	'nombre_contacto',
-    	'app_contacto',
-    	'apm_contacto',
+    	'apellido_contacto',
+    	'apellido_materno_contacto',
     	'lada_contacto',
-    	'telofono_contacto',
-    	'nombre_modelo',
-    	'modelo',
+    	'telefono_contacto',
+    	'nombremodelo',
     	'chasis',
     	'placa',
-    	'fecha_entrada',
-    	'fecha_servicio',
-    	'KM',
-    	'tipo_servicio',
-    	'costo',
-    	'no_orden',
-    	'fecha_insercion',
-    	'ano_modelo',
-    	'nombre_asesor',
-    	'app_asesor',
-    	'apm_asesor',
-    	'tecnico',
-    	'contactable',
-    	'cache'];
+    	'tiposervicio',
+    	'noorden',
+    	'anomodelo',
+    	'asesornombre',
+    	'asesorapp',
+    	'asesorapm',
+    	'contacto',
+    	'comentarios'];
 
-    public function scopeId($query, $id)
+    public static function showEncuestas()
     {
-        #dd('scope: '. $id);
-        $query->where('id_registro',$id)->paginate(10);
+        //Traemos todos los registros que no sean tipo de servicio interno (8), ya que solo queremos registros de clientes. Tambien buscamos que tengan encuesta contestada y con estado 0 ya que este estado indica que la encuesta esta completada o no, a su vez verificamos que no este reprogramada.
+        $registros = DB::table('registros')
+            ->join('encuestas', function($join){
+                $join->on('registros.id_registro','=','encuestas.id_registro')
+                ->where('encuestas.estado',0)
+                ->where('encuestas.reprograma',null);
+            })
+            ->where('registros.tiposervicio','!=','8')
+            ->orderBy('registros.id_registro','DESC');
+
+        return $registros;
+    }
+    public function scopeShowReprogramadas($query)
+    {
+        $query = DB::table('registros')->join('encuestas',function($join){
+            $join->on('registros.id_registro','encuestas.id_registro')
+            ->where('encuestas.reprograma','on')
+            ->where('encuestas.estado',0);
+        })
+        ->where('registros.tiposervicio','!=','8')
+        ->get();
+
+        return $query;
+    }
+    public static function saveRegistro($arrInfo)
+    {
+        //Verificamos que el el registro no se encuentre en la base de datos, si es así realiza un update.
+        $registro = isset($arrInfo['id_registro']) ? self::find($arrInfo['id_registro']) : new self();
+        #Fill relaciona los nombres de el array con los nombres de la base si son iguales los asigna para almacenarlos en la base de datos.
+        $registro->fill($arrInfo);
+
+        //Los archivos CSV traen un campo con la letra ñ como caracter especial que reconoce el array como un 0 por lo tanto ocupamos la posición con este nombre para evitar este error y la información de este campo se almacene en la base de datos.
+        $registro->añomodelo = $arrInfo['0'];
+        
+        #Guardamos en la BD
+        $registro->save();
+        
+        if ($registro->tiposervicio!=8)
+        {
+            $encuesta = new Encuesta;
+            $encuesta->id_registro = $registro->id;
+            $encuesta->estado = 0;
+            $encuesta->intento = 0;
+            $encuesta->save();
+        }
+        return $registro;
     }
 }

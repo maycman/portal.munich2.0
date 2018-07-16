@@ -177,8 +177,11 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         Collective\Html\HtmlServiceProvider::class,
-        'Maatwebsite\Excel\ExcelServiceProvider',
         Styde\Html\HtmlServiceProvider::class,
+        Barryvdh\DomPDF\ServiceProvider::class,
+        'Khill\Lavacharts\Laravel\LavachartsServiceProvider',
+        'Maatwebsite\Excel\ExcelServiceProvider',
+        Maatwebsite\Excel\ExcelServiceProvider::class,
 
     ],
 
@@ -228,11 +231,13 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
-        'Excel'     => 'Maatwebsite\Excel\Facades\Excel',
         'Form' => 'Collective\Html\FormFacade',
         'Html' => 'Collective\Html\HtmlFacade',
         'Input' => Illuminate\Support\Facades\Input::class,
-
+        'PDF' => Barryvdh\DomPDF\Facade::class,
+        'Lava' => 'Khill\Lavacharts\Laravel\LavachartsFacade',
+        'Excel'     => 'Maatwebsite\Excel\Facades\Excel',
+        'Excel' => Maatwebsite\Excel\Facades\Excel::class,
     ],
 
 ];
