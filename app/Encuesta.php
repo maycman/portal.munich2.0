@@ -34,9 +34,9 @@ class Encuesta extends Model
     	#Revisamos si el array trae una encuesta para editar ó creamos una nueva
     	$encuesta = isset($arrInfo['id_encuesta']) ? self::find($arrInfo['id_encuesta']) : new self();
 
-
-        #Comprobamos si existen intento de contactación y/o aumentamos el contador
+        #Aumentamos el contador de intentos de llamada
         $encuesta->intento +=1;
+
         #Ahora verificamos si ya completo con todos los intentos de llamada
         ($encuesta->intento<2) ? $encuesta->estado=0 : $encuesta->estado=1;
 

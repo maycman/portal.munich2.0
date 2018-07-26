@@ -12,7 +12,7 @@
 */
 Auth::routes();
 Route::get('/', 'principalController@index');
-Route::get('/encuestas', 'encuestaController@index')->name('Encuestas');
+Route::get('/encuestas', 'encuestaController@index');
 Route::get('/encuestas/servicio', 'encuestaController@servicio');
 Route::get('/encuestas/servicio/{id}', 'encuestaController@show');
 Route::post('/encuestas/servicio','encuestaController@store');
