@@ -51,14 +51,16 @@ class Encuesta extends Model
             }
             else
             {
+                #Colocamos el estado 1 de encuesta completada.
                 $encuesta->estado = 1;
             }
         }
         else
         {
             #Evaluamos el motivo de no contacto
-            if ($arrInfo->contactable == 'Número no existe' || $arrInfo->contactable == 'Número equivocado')
+            if ($arrInfo->razon == 'Número no existe' || $arrInfo->razon == 'Número equivocado')
             {
+                #Colocamos el estado 1 de encuesta completada.
                 $encuesta->estado = 1;
             }
 
@@ -75,17 +77,27 @@ class Encuesta extends Model
         $encuesta->save();
 
 
+        #Consultamos todas las preguntas
         $preguntas = Pregunta::where('origen','=','servicio')
         				->select('id_pregunta','pregunta')
         				->get();
 
+        #Ahora recorremos las preguntas mientras las contestamos
         foreach ($preguntas as $key => $value)
         {
+            #Buscamos el nombre (ID numerico de la pregunta en nuestro request de la encuesta)
         	if(isset($arrInfo[$value->id_pregunta]))
         	{
+                #Creamos un array con la posición id_encuesta colocando el ID de la encuesta que guardamos arriba
         		$respuesta = [ 'id_encuesta' =>$encuesta->id_encuesta ];
+
+                #Creamos la posición id_pregunta en la cual asignamos el ID de la pregunta que recorremos
         		$respuesta['id_pregunta'] = $value->id_pregunta;
+
+                #Creamos la posición respuesta y respondemos con la respuesta que trae el request con el nombre (ID numerico de la pregunta)
         		$respuesta['respuesta'] = $arrInfo[$value->id_pregunta];
+
+                #Guardamos la respuesta
         		Respuesta::saveRespuesta($respuesta);
         	}
         }
