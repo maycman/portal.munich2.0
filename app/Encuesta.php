@@ -63,9 +63,11 @@ class Encuesta extends Model
                 #Colocamos el estado 1 de encuesta completada.
                 $encuesta->estado = 1;
             }
-
-            #Si no es contactable, mantenemos el estado a 0 de encuesta incompleta hasta que contesto o los intentos sean mas de 3
-            $encuesta->estado=0;
+            else
+            {
+                #Si no es contactable, mantenemos el estado a 0 de encuesta incompleta hasta que contesto o los intentos sean mas de 3
+                $encuesta->estado=0;
+            }
         }
 
         #Guardamos los datos restantes de la encuesta
