@@ -19,7 +19,8 @@ Route::post('/encuestas/servicio','encuestaController@store');
 Route::get('/encuestas/carga', 'baseEncuestaController@index');
 Route::post('/encuestas/carga','baseEncuestaController@servicio');
 Route::get('/encuestas/reportes','reportesController@preparaReporte');
-Route::get('/test','reportesController@reporte');
+Route::get('/encuestas/reportes/xencuesta','reportesController@xencuesta');
+Route::post('/encuestas/reportes','reportesController@xrango');
 
 
 Route::get('/4semanas','cuatroSemanasController@index');

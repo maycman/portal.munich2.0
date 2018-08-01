@@ -16,7 +16,13 @@
             <a href="/encuestas/reportes/xencusta" class="btn btn-primary btn-lg btn-block">Visualizar por Encuesta</a>
         </div>
         <div class="col-sm-3">
-            <a id="rango" href="#" class="btn btn-primary btn-lg btn-block">Visualizar por rango</a>
+            <button id="rango" class="btn btn-primary btn-lg btn-block">Visualizar por rango</button>
+        </div>
+    </div>
+    <div class="row separa">
+        <div class="col-sm-offset-4">
+            {{!! Form::open(array('url' => '/encuestas/reportes', 'method' => 'post') !!}}
+            {{!! Form::close !!}}
         </div>
     </div>
 </div>

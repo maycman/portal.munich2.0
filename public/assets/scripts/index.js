@@ -375,3 +375,19 @@ function modificarFecha(param)
 		format: 'L'
 	});
 }
+function Reportes rangoOpen()
+{
+	var open = $('#rango');
+	open.click(function(){
+		if (form.attr('class')=='col-sm-5 hide')
+		{
+			form.removeClass();
+			form.addClass('col-sm-5 animated bounceInUp');
+		}
+		else
+		{
+			form.removeClass();
+			form.addClass('col-sm-5 hide');
+		}
+	});
+}
