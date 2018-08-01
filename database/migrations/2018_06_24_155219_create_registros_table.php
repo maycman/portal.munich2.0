@@ -40,7 +40,8 @@ class CreateRegistrosTable extends Migration
             $table->string('telefono_contacto')->nullable();
             $table->string('nombremodelo')->nullable();
             $table->string('chasis');
-            $table->string('placa')->nullable();;
+            $table->string('placa')->nullable();
+            $table->string('fechaservicio');
             $table->string('tiposervicio');
             $table->string('noorden');
             $table->string('añomodelo')->nullable();

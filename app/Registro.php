@@ -36,6 +36,7 @@ class Registro extends Model
     	'nombremodelo',
     	'chasis',
     	'placa',
+        'fechaservicio',
     	'tiposervicio',
     	'noorden',
     	'anomodelo',
@@ -84,6 +85,7 @@ class Registro extends Model
         #Guardamos en la BD
         $registro->save();
         
+        #Si el registro tiene tipo de servicio 8 no creamos su encuesta debido a que estas no se realizan
         if ($registro->tiposervicio!=8)
         {
             $encuesta = new Encuesta;

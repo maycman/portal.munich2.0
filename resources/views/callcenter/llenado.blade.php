@@ -61,13 +61,17 @@
 						<th>@lang('auth.placa')</th>
 						<td>{{ $consulta->placa }}</td>
 
+						<th>@lang('auth.fechaS')</th>
+						<td>{{ $consulta->fechaservicio }}</td>
+
 						<th>@lang('auth.tipo')</th>
 						<td>{{ $consulta->tiposervicio }}</td>
 
-						<th>@lang('auth.orden')</th>
-						<td>{{ $consulta->noorden }}</td>
 					</tr>
 					<tr>
+						<th>@lang('auth.orden')</th>
+						<td>{{ $consulta->noorden }}</td>
+
 						<th>@lang('auth.año')</th>
 						<td>{{ $consulta->añomodelo }}</td>
 

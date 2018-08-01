@@ -47,7 +47,7 @@ class baseEncuestaController extends Controller
 				//Recorremos la colección de datos del CSV
 				foreach ($reader->get() as $base)
 				{
-					//Importamos los datos del CSV a la Base de datos
+					//Importamos los datos del CSV a la Base de datos y al mismo tiempo convertimos la colección $base en un array con el metodo ->all()
 					Registro::saveRegistro($base->all());
 				}
 			});

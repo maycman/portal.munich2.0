@@ -18,8 +18,8 @@ Route::get('/encuestas/servicio/{id}', 'encuestaController@show');
 Route::post('/encuestas/servicio','encuestaController@store');
 Route::get('/encuestas/carga', 'baseEncuestaController@index');
 Route::post('/encuestas/carga','baseEncuestaController@servicio');
-Route::get('/encuestas/reportes','reportesController@servicio');
-Route::get('/test','reportesController@test');
+Route::get('/encuestas/reportes','reportesController@preparaReporte');
+Route::get('/test','reportesController@reporte');
 
 
 Route::get('/4semanas','cuatroSemanasController@index');

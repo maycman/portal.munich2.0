@@ -33,6 +33,7 @@ return [
     'modelo'=>'Modelo',
     'chasis'=>'Número de Serie',
     'placa'=>'Placa',
+    'fechaS'=>'Fecha Servicio',
     'tipo'=>'Tipo de servicio',
     'orden'=>'Número de orden',
     'año'=>'Año Modelo',

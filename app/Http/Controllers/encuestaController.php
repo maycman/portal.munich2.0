@@ -38,10 +38,6 @@ class encuestaController extends Controller
         $reprogramadas = Registro::ShowReprogramadas();
         return view('callcenter/servicio',compact('registro','reprogramadas'));
     }
-    public function ventas()
-    {
-        //
-    }
     /**
      * Store a newly created resource in storage.
      *

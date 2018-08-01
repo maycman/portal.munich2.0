@@ -12,7 +12,18 @@
         </div>
     </div>
     @include('callcenter.menu')
-    <div class="row mgn-top">
+    <!--div class="row mgn-top">
+        <div class="col-sm-12">
+            {!! Form::open(array('url' => '/encuestas/reportes', 'method' => 'post', 'class'=>'form-inline')) !!}
+                <div class="form-group">
+                    <label>Chasis:</label>
+                    <input type="text" class="form-control" name="chasis" id="chasis" required>
+                </div>
+                {!! Form::submit('Buscar', ["class" => "btn btn-success"]) !!}
+            {!! Form::close() !!}
+        </div>
+    </div-->
+    <div class="row">
     	<div class="col-sm-3">
     		<div class="c100 p50">
     			<span>50%</span>
@@ -25,9 +36,9 @@
     </div>
     <div class="row">
         <div class="col-sm-9">
-            <div id="chart-div"></div>
             <!--With Blade Templates-->
-            <!--@donutchart('contactados', 'chart-div')-->
+            <div id="chart-div"></div>
+            @donutchart('contactados', 'chart-div')
         </div>
     </div>
 </div>
