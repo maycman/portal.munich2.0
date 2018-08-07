@@ -17,6 +17,9 @@ $(document).ready(function(){
 	showNameFile();
 
 
+	/*Script que muestra o esconde el menu de reportes de servicio por Rango en encuestas de servicio*/
+	rangoOpen();
+
 	//loading();
 });
 
@@ -375,19 +378,22 @@ function modificarFecha(param)
 		format: 'L'
 	});
 }
-function Reportes rangoOpen()
+function rangoOpen()
 {
-	var open = $('#rango');
+	var open = $('#butonRango');
+	var div = $('#rango');
+
 	open.click(function(){
-		if (form.attr('class')=='col-sm-5 hide')
+		if (div.attr('class')=='row separa hide')
 		{
-			form.removeClass();
-			form.addClass('col-sm-5 animated bounceInUp');
+			div.removeClass();
+			div.addClass('row separa animated bounceInUp');
 		}
 		else
 		{
-			form.removeClass();
-			form.addClass('col-sm-5 hide');
+			div.removeClass();
+			div.addClass('row separa animated bounceOutDown');
+			setTimeout(function(){div.removeClass(); div.addClass('row separa hide');}, 500);
 		}
 	});
 }
