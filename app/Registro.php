@@ -39,39 +39,14 @@ class Registro extends Model
         'fechaservicio',
     	'tiposervicio',
     	'noorden',
-    	'anomodelo',
+    	'añomodelo',
     	'asesornombre',
     	'asesorapp',
     	'asesorapm',
     	'contacto',
     	'comentarios'];
 
-    public static function showEncuestas()
-    {
-        //Traemos todos los registros que no sean tipo de servicio interno (8), ya que solo queremos registros de clientes. Tambien buscamos que tengan encuesta contestada y con estado 0 ya que este estado indica que la encuesta esta completada o no, a su vez verificamos que no este reprogramada.
-        $registros = DB::table('registros')
-            ->join('encuestas', function($join){
-                $join->on('registros.id_registro','=','encuestas.id_registro')
-                ->where('encuestas.estado',0)
-                ->where('encuestas.reprograma',null);
-            })
-            ->where('registros.tiposervicio','!=','8')
-            ->orderBy('registros.id_registro','DESC');
-
-        return $registros;
-    }
-    public function scopeShowReprogramadas($query)
-    {
-        $query = DB::table('registros')->join('encuestas',function($join){
-            $join->on('registros.id_registro','encuestas.id_registro')
-            ->where('encuestas.reprograma','on')
-            ->where('encuestas.estado',0);
-        })
-        ->where('registros.tiposervicio','!=','8')
-        ->get();
-
-        return $query;
-    }
+    
     public static function saveRegistro($arrInfo)
     {
         //Verificamos que el el registro no se encuentre en la base de datos, si es así realiza un update.

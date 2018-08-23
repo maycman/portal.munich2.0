@@ -8,8 +8,8 @@ use Khill\Lavacharts\Lavacharts;
 use Barryvdh\DomPDF\Facade as PDF;
 use App\Transaction;
 use App\Registro;
-use App\SEncuesta;
-use App\Completadas;
+use App\Encuesta;
+use Carbon\Carbon;
 
 class reportesController extends Controller
 {
@@ -17,12 +17,23 @@ class reportesController extends Controller
     {
         $this->middleware('auth');
     }
-    public function preparaReporte(Request $request)
+    public function preparaReporte()
     {
     	return view('/callcenter/configReporteServicio');
     }
-    public function reporte(Request $request)
+    public function xEncuesta()
+    {}
+    public function xRango(Request $request)
     {
+        #This is the Key!!
+        $di = Carbon::parse($request->fechaInit);
+        $df = Carbon::parse($request->fechaFin);
+        $di = $di->format('d-m-Y');
+        dd($di);
+
+
+
+
         $data = \Lava::DataTable();
         $data->addStringColumn('Reasons')
             ->addNumberColumn('Percent')

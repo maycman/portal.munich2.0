@@ -50,9 +50,9 @@
 								<td>{{ $row->mail }}</td>
 								<td>{{ $row->nombre_contacto.' '.$row->apellido_contacto.' '.$row->apellido_materno_contacto }}</td>
 								<td>{{ $row->chasis }}</td>
-								<td>{{ $row->asesornombre.' '.$row->asesorapp.' '.$row->asesorapm }}</td>
 								<td>{{ $row->tiposervicio }}</td>
 								<td>{{ $row->noorden }}</td>
+								<td>{{ $row->asesornombre.' '.$row->asesorapp.' '.$row->asesorapm }}</td>
 								<td>{{ $row->intento }}</td>
 								<td>{{ $row->fecha_reprograma }}</td>
 								<td>
@@ -89,6 +89,7 @@
 								<th>Orden</th>
 								<th>Asesor Servicio</th>
 								<th>Intentos de contactación</th>
+								<th>Hora de contactación</th>
 								<th>Acción</th>
 							</tr>
 						</thead>
@@ -107,6 +108,7 @@
 								<td>{{ $reg->noorden }}</td>
 								<td>{{ $reg->asesornombre.' '.$reg->asesorapp.' '.$reg->asesorapm }}</td>
 								<td>{{ $reg->intento }}</td>
+								<td>{{ $reg->updated_at }}</td>
 								@if(Auth::user()->hasRole('viewer'))
 								@else
 								<td>

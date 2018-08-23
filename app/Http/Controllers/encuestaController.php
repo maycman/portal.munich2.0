@@ -34,8 +34,8 @@ class encuestaController extends Controller
     public function servicio()
     {
         #Esta es una simple consulta con scope
-        $registro = Registro::ShowEncuestas()->paginate(50);
-        $reprogramadas = Registro::ShowReprogramadas();
+        $registro = Encuesta::ShowEncuestas()->paginate(50);
+        $reprogramadas = Encuesta::ShowReprogramadas();
         return view('callcenter/servicio',compact('registro','reprogramadas'));
     }
     /**
@@ -48,8 +48,8 @@ class encuestaController extends Controller
     {
         #Guardamos la encuesta
         Encuesta::saveEncuesta($request);
-        $registro = Registro::ShowEncuestas()->paginate(50);
-        $reprogramadas = Registro::ShowReprogramadas();
+        $registro = Encuesta::ShowEncuestas()->paginate(50);
+        $reprogramadas = Encuesta::ShowReprogramadas();
         
         \Alert::message('Encuesta Guardada Satisfactoriamente', 'info');
         return view('callcenter/servicio', compact('registro', 'reprogramadas'));
