@@ -3,16 +3,16 @@
 @section("content")
 <div class="container">
     <div class="row">
-            <div class="col-sm-1">
-                <button class="btn btn-danger" onclick="history.back(-1)"><span class="glyphicon glyphicon-menu-left"></span> Volver</button>
-            </div>
+        <div class="col-sm-1">
+            <button class="btn btn-danger" onclick="history.back(-1)"><span class="glyphicon glyphicon-menu-left"></span> Volver</button>
         </div>
-        <div class="row">
-            <div class="col-sm-offset-1 col-sm-4">
-                <h1>Encuestas de servicio</h1>
-            </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-offset-1 col-sm-4">
+            <h1>Encuestas de servicio</h1>
         </div>
-        @include('callcenter.menu')
+    </div>
+    @include('callcenter.menu')
 	<div class="row buffer-top">
 		<div class="col-sm-4 col-sm-offset-4">
 			<h1>Cargar Base</h1>
