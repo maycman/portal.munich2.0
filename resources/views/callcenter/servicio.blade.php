@@ -75,7 +75,6 @@
 			<div class="col-sm-12">
 				<fieldset>
 					<legend>Encuestas</legend>
-					<div class="table-responsive">
 					<table class="table table-striped">
 						<thead>
 							<tr>
@@ -124,7 +123,6 @@
 						@endforeach
 						</tbody>
 					</table>
-					</div>
 				</fieldset>
 			</div>
 		</div>
