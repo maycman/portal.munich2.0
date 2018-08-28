@@ -238,6 +238,7 @@ return [
         'Lava' => 'Khill\Lavacharts\Laravel\LavachartsFacade',
         'Excel'     => 'Maatwebsite\Excel\Facades\Excel',
         'Excel' => Maatwebsite\Excel\Facades\Excel::class,
+        'Lava' => Khill\Lavacharts\Laravel\LavachartsFacade::class,
     ],
 
 ];

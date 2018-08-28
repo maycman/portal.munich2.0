@@ -7,35 +7,54 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-sm-offset-1 col-sm-4">
-            <h1>Encuestas de servicio</h1>
+        <div class="col-sm-5">
+            <div class="page-header">
+                <h1>Informe Telefónico de Servicio</h1>
+            </div>
         </div>
     </div>
-    @include('callcenter.menu')
-    <!--div class="row mgn-top">
-        <div class="col-sm-12">
-            {!! Form::open(array('url' => '/encuestas/reportes', 'method' => 'post', 'class'=>'form-inline')) !!}
-                <div class="form-group">
-                    <label>Chasis:</label>
-                    <input type="text" class="form-control" name="chasis" id="chasis" required>
-                </div>
-                {!! Form::submit('Buscar', ["class" => "btn btn-success"]) !!}
-            {!! Form::close() !!}
-        </div>
-    </div-->
     <div class="row">
-    	<div class="col-sm-3">
-    		<div class="c100 p50">
-    			<span>50%</span>
+    	<div class="col-sm-2">
+    		<div class="c100 green p100">
+    			<span>{{ $entrantes }}</span>
     			<div class="slice">
     				<div class="bar"></div>
     				<div class="fill"></div>
     			</div>
     		</div>
     	</div>
+        <div class="col-sm-2">
+            <div class="c100 p100">
+                <span>{{ $contactables }}</span>
+                <div class="slice">
+                    <div class="bar"></div>
+                    <div class="fill"></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-2">
+            <div class="c100 orange p100">
+                <span>{{ $nocontactables }}</span>
+                <div class="slice">
+                    <div class="bar"></div>
+                    <div class="fill"></div>
+                </div>
+            </div>
+        </div>
     </div>
     <div class="row">
-        <div class="col-sm-9">
+        <div class="col-sm-2">
+            <p class="lead">Clientes que entraron a Servicio</p>
+        </div>
+        <div class="col-sm-2">
+            <p class="lead">Clientes que desean ser contactados</p>
+        </div>
+        <div class="col-sm-2">
+            <p class="lead">Clientes que no desean ser contactados</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-offset-2 col-sm-8">
             <!--With Blade Templates-->
             <div id="chart-div"></div>
             @donutchart('contactados', 'chart-div')

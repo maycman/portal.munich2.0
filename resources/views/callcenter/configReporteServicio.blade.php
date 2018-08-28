@@ -21,7 +21,7 @@
     </div>
     <div id="rango" class="row separa hide">
         <div class="col-sm-offset-2 buffer-top col-sm-10">
-            {!! Form::open(array('url' => '/encuestas/reportes', 'method' => 'post', 'class' => 'form-inline')) !!}
+            {!! Form::open(array('url' => '/encuestas/reporte', 'method' => 'post', 'class' => 'form-inline')) !!}
                 <div class="form-group">
                     {!! Form::label('fechaInicial', 'Fecha Inicial') !!}
                     <div class='input-group date age'>
