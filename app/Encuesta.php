@@ -84,6 +84,7 @@ class Encuesta extends Model
         return $registros;
     }
 
+    
     public function scopeShowReprogramadas($query)
     {
         $query = DB::table('registros')->join('encuestas',function($join){
@@ -98,7 +99,7 @@ class Encuesta extends Model
         return $query;
     }
 
-    #Metodo para guardar o editar uno encuesta.
+
     public static function saveEncuesta($arrInfo)
     {
     	#Revisamos si el array trae una encuesta para editar ó creamos una nueva

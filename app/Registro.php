@@ -58,13 +58,13 @@ class Registro extends Model
         //Los archivos CSV traen un campo con la letra ñ como caracter especial que reconoce el array como un 0 por lo tanto ocupamos la posición con este nombre para evitar este error y la información de este campo se almacene en la base de datos.
         $registro->añomodelo = $arrInfo['0'];
 
-        //Covertimos la fecha del CSV con el formato correcto
+        //Covertimos la fecha del CSV con el formato correcto con Carbon
         $fechaServicio = Carbon::createFromFormat('d/m/Y', $arrInfo['fechaservicio']);
         
 
         //Guardamos la fecha convertida por Carbon en la base de datos
         $registro->fechaservicio = $fechaServicio;
-        
+
         
         #Guardamos en la BD
         $registro->save();
