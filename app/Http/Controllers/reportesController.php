@@ -29,17 +29,17 @@ class reportesController extends Controller
         #Usamos carbon para setear las fechas y poder realizar busquedas
         $di = Carbon::parse($request->fechaInit);
         $df = Carbon::parse($request->fechaFin);
-        $di = $di->format('d/m/Y');
-        $df = $df->format('d/m/Y');
+        #$di = $di->format('d/m/Y');
+        #$df = $df->format('d/m/Y');
         
-        dd($di.'   '.$df);
+
         #Buscamos todos clientes que entraron a servicio
         $query = DB::table('registros')
             ->where('registros.fechaservicio', '>=', $di)
             ->where('registros.fechaservicio', '<=', $df)
             ->get();
 
-        dd($query);
+        dd(count($query));
         #contamos cuantos clientes entraron
         $entrantes = count($query);
 
@@ -66,8 +66,8 @@ class reportesController extends Controller
 
         
         #Sacamos el porcentaje de los datos
-        $pcontactables = $contactables / $entrantes * 100;
-        $pnocontactables = $nocontactables / $entrantes * 100;
+        #$pcontactables = $contactables / $entrantes * 100;
+        #$pnocontactables = $nocontactables / $entrantes * 100;
 
         $data = \Lava::DataTable();
         $data->addStringColumn('Clientes')
