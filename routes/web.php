@@ -21,6 +21,7 @@ Route::post('/encuestas/carga','baseEncuestaController@servicio');
 Route::get('/encuestas/reportes','reportesController@preparaReporte');
 Route::get('/encuestas/reportes/xencuesta','reportesController@xencuesta');
 Route::post('/encuestas/reporte','reportesController@xrango');
+Route::post('/encuestas/exportar','reportescontroller@pdf');
 
 
 Route::get('/4semanas','cuatroSemanasController@index');

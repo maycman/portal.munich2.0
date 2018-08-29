@@ -53,6 +53,8 @@ class reportesController extends Controller
                     $join->on('registros.id_registro','encuestas.id_registro');
                 })
                 ->where('encuestas.estado','1')
+                ->where('registros.fechaservicio', '>=', $di)
+                ->where('registros.fechaservicio', '<=', $df)
                 ->get();
 
 
@@ -62,6 +64,8 @@ class reportesController extends Controller
                     $join->on('registros.id_registro','encuestas.id_registro');
                 })
                 ->where('encuestas.estado','0')
+                ->where('registros.fechaservicio', '>=', $di)
+                ->where('registros.fechaservicio', '<=', $df)
                 ->get();
 
 
@@ -106,11 +110,13 @@ class reportesController extends Controller
             $data = array('entrantes' => $entrantes,'contactables' => $contactables,'nocontactables' => $nocontactables);
 
             return view('/callcenter/reportesServicio', compact('data'));
-
-
-            /*$pdf = PDF::loadView('/callcenter/reportesServicio', compact('registro'));
-
-            return $pdf->download('reporte.pdf');*/
         }
+    }
+    public function pdf(Request $request)
+    {
+        #dd($request);
+        return PDF::loadView('/callcenter/pdfServicio', compact('request'))->stream('reporte.pdf');
+        #$pdf = PDF::loadView('/callcenter/pdfServicio', compact('request'));
+        #return $pdf->download('reporte.pdf');
     }
 }

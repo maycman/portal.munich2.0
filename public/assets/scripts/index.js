@@ -21,6 +21,10 @@ $(document).ready(function(){
 	rangoOpen();
 
 	//loading();
+
+
+	/*Boton de imprimir*/
+	imprimir();
 });
 
 
@@ -395,5 +399,12 @@ function rangoOpen()
 			div.addClass('row separa animated bounceOutDown');
 			setTimeout(function(){div.removeClass(); div.addClass('row separa hide');}, 500);
 		}
+	});
+}
+function imprimir()
+{
+	let print = $("#imprimir");
+	print.click(function(){
+		window.print();
 	});
 }

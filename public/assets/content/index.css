@@ -96,3 +96,10 @@ body
 {
 	display:none;
 }
+@media print
+{
+	.impre
+	{
+		display:none;
+	}
+}
