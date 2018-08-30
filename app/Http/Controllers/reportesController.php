@@ -23,7 +23,8 @@ class reportesController extends Controller
     	return view('/callcenter/configReporteServicio', compact('title'));
     }
     public function xEncuesta()
-    {}
+    {
+    }
     public function xRango(Request $request)
     {
         $title = 'Informe Telefónico de Servicio';
