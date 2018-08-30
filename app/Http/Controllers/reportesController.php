@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Khill\Lavacharts\Lavacharts;
-use Barryvdh\DomPDF\Facade as PDF;
 use App\Transaction;
 use App\Encuesta;
 use App\Registro;
@@ -20,12 +19,14 @@ class reportesController extends Controller
     }
     public function preparaReporte()
     {
-    	return view('/callcenter/configReporteServicio');
+        $title = 'Encuestas De Servicio';
+    	return view('/callcenter/configReporteServicio', compact('title'));
     }
     public function xEncuesta()
     {}
     public function xRango(Request $request)
     {
+        $title = 'Informe Telefónico de Servicio';
         #Usamos carbon para setear las fechas y poder realizar busquedas
         $di = Carbon::parse($request->fechaInit);
         $df = Carbon::parse($request->fechaFin);
@@ -43,7 +44,7 @@ class reportesController extends Controller
         #Si la busqueda no trae registros redireccionamos a la vista con un mensaje
         if(count($query)==0)
         {
-            return view('/callcenter/sinDatos');
+            return view('/callcenter/sinDatos', compact('title'));
         }
         else
         {
@@ -109,13 +110,14 @@ class reportesController extends Controller
             #Creamos un array con los datos para pasar una sola variable a la vista
             $data = array('entrantes' => $entrantes,'contactables' => $contactables,'nocontactables' => $nocontactables);
 
-            return view('/callcenter/reportesServicio', compact('data'));
+            return view('/callcenter/reportesServicio', compact('data', 'title'));
         }
     }
     public function pdf(Request $request)
     {
+        $title = 'Test';
         #dd($request);
-        return PDF::loadView('/callcenter/pdfServicio', compact('request'))->stream('reporte.pdf');
+        return PDF::loadView('/callcenter/pdfServicio', compact('request', 'title'))->stream('reporte.pdf');
         #$pdf = PDF::loadView('/callcenter/pdfServicio', compact('request'));
         #return $pdf->download('reporte.pdf');
     }

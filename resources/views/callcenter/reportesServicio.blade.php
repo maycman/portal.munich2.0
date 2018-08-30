@@ -22,6 +22,7 @@
     				<div class="fill"></div>
     			</div>
     		</div>
+            <p class="lead">Clientes que entraron a Servicio</p>
     	</div>
         <div class="col-sm-2">
             <div class="c100 p100">
@@ -31,6 +32,7 @@
                     <div class="fill"></div>
                 </div>
             </div>
+            <p class="lead">Clientes que desean ser contactados</p>
         </div>
         <div class="col-sm-2">
             <div class="c100 orange p100">
@@ -40,6 +42,7 @@
                     <div class="fill"></div>
                 </div>
             </div>
+            <p class="lead">Clientes que no desean ser contactados</p>
         </div>
         <div class="col-sm-offset-1 col-sm-1 impre">
             <button class="btn btn-primary btn-lg" id="imprimir" value="Imprimir">Imprimir</button>
@@ -52,17 +55,6 @@
                 {!! Form::submit('Imprimir o Guardar PDF', ["class" => "btn btn-primary btn-lg"]) !!}
             {!! Form::close() !!}
         </div-->
-    </div>
-    <div class="row">
-        <div class="col-sm-offset-2 col-sm-2">
-            <p class="lead">Clientes que entraron a Servicio</p>
-        </div>
-        <div class="col-sm-2">
-            <p class="lead">Clientes que desean ser contactados</p>
-        </div>
-        <div class="col-sm-2">
-            <p class="lead">Clientes que no desean ser contactados</p>
-        </div>
     </div>
     <div class="mgn-top row">
         <div class="col-sm-offset-2 col-sm-8">

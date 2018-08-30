@@ -20,9 +20,10 @@ class cuatroSemanasController extends Controller
     }
     public function index(Request $request)
     {
+        $title = 'Servicio De 4 Semanas';
         $request->user()->authorizeRoles(['admin', 'viewer', 'sellers']);
         $datos =Auto::where('estado','')->orWhere('estado',null)->orderBy('id_auto', 'DESC')->paginate(50);
-        return view("autos.list", compact('datos'));
+        return view("autos.list", compact('datos', 'title'));
     }
 
     /**
@@ -43,6 +44,7 @@ class cuatroSemanasController extends Controller
      */
     public function store(Request $request)
     {
+        $title = 'Servicio De 4 Semanas';
         $fecha_llegada = formatDate($request->fecha_llegada);
         $fecha_ultimo_servicio = formatDate($request->fecha_ultimo_servicio);
         $fecha_servicio_pendiente = formatDate($request->fecha_servicio_pendiente);
@@ -56,7 +58,7 @@ class cuatroSemanasController extends Controller
             {
                 $datos =Auto::where('estado','')->orWhere('estado',null)->orderBy('id_auto', 'DESC')->paginate(50);
                 \Alert::message('Error, número de serie duplicado', 'danger');
-                return view('autos.list')->with('datos', $datos);
+                return view('autos.list', compact('title'))->with('datos', $datos);
             }
         }
         $row = new Auto;
@@ -72,7 +74,7 @@ class cuatroSemanasController extends Controller
         $row->save();
         $datos =Auto::where('estado','')->orWhere('estado',null)->orderBy('id_auto', 'DESC')->paginate(50);
         \Alert::message('Nuevo auto cargado', 'info');
-        return view('autos.list')->with('datos', $datos);
+        return view('autos.list', compact('title'))->with('datos', $datos);
     }
     /**
      * Display the specified resource.
@@ -82,6 +84,7 @@ class cuatroSemanasController extends Controller
      */
     public function show(Request $req)
     {
+        $title = 'Servicio De 4 Semanas';
         #dd($req);
         /*#Buscamos que el chasis y generamos la colección
         $datos = DB::table('autos')->where('chasis', 'like','%'.$req->chasis.'%')->get();
@@ -112,11 +115,12 @@ class cuatroSemanasController extends Controller
         {
             \Alert::message('No encontrado', 'danger');
         }
-        return view('autos.busqueda',compact('datos'));
+        return view('autos.busqueda',compact('datos',  'title'));
     }
     public function result()
     {
-        return view("autos.busqueda");
+        $title = 'Servicio De 4 Semanas';
+        return view("autos.busqueda",compact('title'));
     }
     /**
      * Show the form for editing the specified resource.
@@ -126,8 +130,9 @@ class cuatroSemanasController extends Controller
      */
     public function edit($id)
     {
+        $title = 'Servicio De 4 Semanas';
         $registro = Auto::where('id_auto', $id)->first();
-        return view('autos.edit', compact('registro'));
+        return view('autos.edit', compact('registro', 'title'));
     }
 
     /**
@@ -139,6 +144,7 @@ class cuatroSemanasController extends Controller
      */
     public function update(Request $request)
     {
+        $title = 'Servicio De 4 Semanas';
         $nuevaFechaLlegada = formatDate($request->fecha_llegada);
         $nuevoChasis = $request->chasis;
         $ultimo_servicio = $request->ultimo_servicio;
@@ -164,7 +170,7 @@ class cuatroSemanasController extends Controller
         $row->save();
         $datos =Auto::where('estado','')->orWhere('estado',null)->orderBy('id_auto', 'DESC')->paginate(50);
         \Alert::message('Datos actualizados correctamente', 'success');
-        return view('autos.list')->with('datos', $datos);
+        return view('autos.list', compact('title'))->with('datos', $datos);
     }
 
     /**
@@ -175,11 +181,12 @@ class cuatroSemanasController extends Controller
      */
     public function destroy($id)
     {
+        $title = 'Servicio De 4 Semanas';
         $row = Auto::find($id);
         $row->estado = "concluido";
         $row->save();
         $datos =Auto::where('estado','')->orWhere('estado',null)->orderBy('id_auto', 'DESC')->paginate(50);
         \Alert::message('Auto liberado', 'success');
-        return view('autos.list')->with('datos', $datos);
+        return view('autos.list', compact('title'))->with('datos', $datos);
     }
 }

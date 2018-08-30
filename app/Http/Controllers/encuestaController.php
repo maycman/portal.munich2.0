@@ -23,8 +23,9 @@ class encuestaController extends Controller
     }
     public function index(Request $request)
     {
+        $title = 'Call Center';
         $request->user()->authorizeRoles(['admin', 'viewer', 'service']);
-        return view('callcenter/inicio');
+        return view('callcenter/inicio', compact('title'));
     }
     /**
      * Show the form for creating a new resource.
@@ -33,10 +34,11 @@ class encuestaController extends Controller
      */
     public function servicio()
     {
+        $title = 'Encuestas De Servicio';
         #Esta es una simple consulta con scope
         $registro = Encuesta::ShowEncuestas()->paginate(50);
         $reprogramadas = Encuesta::ShowReprogramadas();
-        return view('callcenter/servicio',compact('registro','reprogramadas'));
+        return view('callcenter/servicio',compact('registro','reprogramadas','title'));
     }
     /**
      * Store a newly created resource in storage.
@@ -46,13 +48,14 @@ class encuestaController extends Controller
      */
     public function store(Request $request)
     {
+        $title = 'Encuestas De Servicio';
         #Guardamos la encuesta
         Encuesta::saveEncuesta($request);
         $registro = Encuesta::ShowEncuestas()->paginate(50);
         $reprogramadas = Encuesta::ShowReprogramadas();
         
         \Alert::message('Encuesta Guardada Satisfactoriamente', 'info');
-        return view('callcenter/servicio', compact('registro', 'reprogramadas'));
+        return view('callcenter/servicio', compact('registro', 'reprogramadas','title'));
     }
 
     /**
@@ -65,7 +68,8 @@ class encuestaController extends Controller
     {
         $consulta = Registro::where('id_registro',$id)->first();
         $encuesta = Encuesta::where('id_registro',$id)->first();
-        return view("callcenter.llenado", compact('consulta','encuesta'));
+        $title = 'Llamada en curso no. '.$id;
+        return view("callcenter.llenado", compact('consulta','encuesta', 'title'));
     }
 
     /**

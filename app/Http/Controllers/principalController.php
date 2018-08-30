@@ -9,7 +9,8 @@ class principalController extends Controller
 {
     public function index()
 	{
-		return view('index');
+		$title = 'Inicio';
+		return view('index',compact('title'));
 	}
 
 	

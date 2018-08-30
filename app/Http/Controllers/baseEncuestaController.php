@@ -18,15 +18,17 @@ class baseEncuestaController extends Controller
     //Este metodo te envia a la vista para cargala base
     public function index()
 	{
-		return view('callcenter/carga');
+		$title = 'Carga De CSV Delimitado Por Comas';
+		return view('callcenter/carga', compact('title'));
 	}
 	//Aqui se carga la base directo del CSV a la Base de datos
 	public function servicio(Request $request)
 	{
+		$title = 'Carga De CSV Delimitado Por Comas';
 		//Verificamos que el Input no se encuentre vacio
 		if(!\Input::file("base"))
     	{
-        	return redirect('/')->with('error-message', 'No se recibio un input tipo File');
+        	return redirect('/', compact('title'))->with('error-message', 'No se recibio un input tipo File');
     	}
 
 		//Obtenemos el archivo en una variable para manipularlo mas adelante
@@ -54,13 +56,13 @@ class baseEncuestaController extends Controller
 
 			//Creamos una alerta para la vista
 			\Alert::message('Base de datos '.$nombre.' Cargada Correctamente', 'info');
-			return view('callcenter/carga');
+			return view('callcenter/carga', compact('title'));
 		}
 		else
 		{
 			//Creamos una alerta para la vista indicando que el archivo cargado no es correcto
 			\Alert::message('Archivo incorrecto '.$nombre.' no es un CSV delimitado por comas', 'danger');
-			return view('callcenter/carga');
+			return view('callcenter/carga', compact('title'));
 		}
 	}
 }
